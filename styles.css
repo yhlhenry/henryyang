@@ -237,20 +237,20 @@ body {
 }
 
 .card-1 {
-    top: 20%;
-    left: 10%;
+    top: 10%;
+    left: 5%;
     animation-delay: 0s;
 }
 
 .card-2 {
-    top: 50%;
-    right: 20%;
+    top: 40%;
+    right: 10%;
     animation-delay: 2.5s;
 }
 
 .card-3 {
-    bottom: 20%;
-    left: 30%;
+    bottom: 10%;
+    left: 20%;
     animation-delay: 5s;
 }
 
@@ -813,6 +813,25 @@ body {
     .hero-buttons {
         justify-content: center;
         flex-wrap: wrap;
+    }
+    
+    /* 手機版卡片重新排列，避免重疊 */
+    .floating-cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        height: auto;
+    }
+    
+    .card {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: 0;
+        width: 200px;
     }
     
     .service-items {
