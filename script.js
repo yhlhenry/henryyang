@@ -65,38 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // 表單提交處理
-    const contactForm = document.querySelector('.contact-form form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    // Google Form 連結處理
+    const googleFormLink = document.querySelector('.google-form-container a');
+    if (googleFormLink) {
+        googleFormLink.addEventListener('click', function(e) {
+            // 添加點擊追蹤（可選）
+            console.log('用戶點擊了 Google Form 連結');
             
-            // 獲取表單數據
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const course = this.querySelector('select').value;
-            const message = this.querySelector('textarea').value;
-
-            // 簡單驗證
-            if (!name || !email || !course) {
-                alert('請填寫所有必填欄位');
-                return;
-            }
-
-            // 模擬表單提交
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '送出中...';
-            submitBtn.disabled = true;
-
-            // 模擬 API 調用
-            setTimeout(() => {
-                alert('感謝您的諮詢！我們會盡快與您聯繫。');
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+            // 可以添加 Google Analytics 或其他追蹤代碼
+            // gtag('event', 'click', {
+            //     event_category: 'form',
+            //     event_label: 'google_form_link'
+            // });
         });
     }
 
