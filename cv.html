@@ -54,21 +54,22 @@
                 text-decoration: none;
                 color: #1f2937;
             }
-            /* Force grid layout to maintain two-column structure */
-            .grid {
+            /* Force two-column layout for print */
+            .grid.grid-cols-12 {
                 display: grid !important;
-            }
-            .grid-cols-12 {
-                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-            }
-            .col-span-12.md\:col-span-8 {
-                grid-column: span 8 / span 8 !important;
-            }
-            .col-span-12.md\:col-span-4 {
-                grid-column: span 4 / span 4 !important;
-            }
-            .gap-6 {
+                grid-template-columns: 65% 35% !important;
                 gap: 1.5rem !important;
+            }
+            .grid.grid-cols-12 > div:first-child {
+                grid-column: 1 !important;
+            }
+            .grid.grid-cols-12 > div:last-child {
+                grid-column: 2 !important;
+            }
+            /* Also fix the inner 3-column grid for Tools/Tech/Mindset */
+            .grid.grid-cols-1.md\:grid-cols-3 {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
             }
         }
 
@@ -135,7 +136,7 @@
                 <div class="text-right text-sm space-y-1">
                     <p><i class="fas fa-envelope text-blue-600 w-5"></i> yhlhenry@gmail.com</p>
                     <p><i class="fas fa-phone text-blue-600 w-5"></i> +886-911-943-150</p>
-                    <p><i class="fab fa-linkedin text-blue-600 w-5"></i> LinkedIn Profile</p>
+                    <p><a href="https://www.linkedin.com/in/hao-lin-henry-yang/" target="_blank"><i class="fab fa-linkedin text-blue-600 w-5"></i> LinkedIn Profile</a></p>
                 </div>
             </div>
         </header>
