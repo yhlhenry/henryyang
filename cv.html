@@ -1,92 +1,88 @@
+# Henry Yang Resume Page
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>楊皓霖 (Henry Yang)</title>
+    <title>楊皓霖 (Henry Yang) - Resume</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Base Reset */
-        * {
-            box-sizing: border-box;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-
         body {
             font-family: 'Noto Sans TC', 'Roboto', sans-serif;
-            background-color: #525659;
-            color: #374151;
-            margin: 0;
-            padding: 0;
+            background-color: #f3f4f6; /* Gray-100 */
+            color: #374151; /* Gray-700 */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-        /* A4 Paper Simulation on Screen */
+        /* A4 Paper Simulation */
         .page {
             width: 210mm;
-            /* Remove fixed height to allow natural flow, but target ~297mm */
-            min-height: 297mm; 
+            min-height: 297mm;
             margin: 20px auto;
             background: white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            /* Slightly tighter padding to ensure safety zone */
-            padding: 10mm 12mm; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 12mm 15mm;
             position: relative;
-            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        /* PRINT STYLES 
-           Crucial: We rely on @page to remove browser margins.
-           User MUST select "Margins: None" in print dialog if browser doesn't auto-detect.
-        */
+        /* Print Specifics */
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0; /* Tells browser: NO margins please */
+            body {
+                background: none;
+                margin: 0;
             }
-            
-            html, body {
-                width: 210mm;
-                height: 297mm;
-                background: white;
-                margin: 0 !important;
-                padding: 0 !important;
-                overflow: hidden; /* Lock scrollbars */
-            }
-
             .page {
-                width: 210mm;
-                height: 297mm;
-                margin: 0 auto !important;
+                width: 100%;
+                margin: 0;
                 box-shadow: none;
-                /* Consistent padding for print */
-                padding: 10mm 12mm !important; 
-                page-break-after: avoid; /* Try to keep on one page */
-                border: none;
+                padding: 10mm 12mm;
+                min-height: auto;
             }
-
             .no-print {
                 display: none !important;
             }
-
-            /* Adjust text size slightly for print readability if needed */
-            body {
-                font-size: 11pt; 
+            /* Ensure page breaks don't cut inside elements */
+            .break-inside-avoid {
+                page-break-inside: avoid;
+            }
+            a {
+                text-decoration: none;
+                color: #1f2937;
+            }
+            /* Force grid layout to maintain two-column structure */
+            .grid {
+                display: grid !important;
+            }
+            .grid-cols-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            }
+            .col-span-12.md\:col-span-8 {
+                grid-column: span 8 / span 8 !important;
+            }
+            .col-span-12.md\:col-span-4 {
+                grid-column: span 4 / span 4 !important;
+            }
+            .gap-6 {
+                gap: 1.5rem !important;
             }
         }
 
-        /* Typography & Components */
-        h1, h2, h3 { color: #111827; }
+        h1, h2, h3 {
+            color: #111827; /* Gray-900 */
+        }
         
         .section-title {
-            border-bottom: 2px solid #2563eb;
-            padding-bottom: 2px;
-            margin-bottom: 8px; /* Reduced margin */
+            border-bottom: 2px solid #2563eb; /* Blue-600 */
+            padding-bottom: 4px;
+            margin-bottom: 12px;
             font-weight: 700;
-            color: #1e40af;
-            font-size: 1.1rem;
+            color: #1e40af; /* Blue-800 */
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -102,13 +98,11 @@
         ul.bullets {
             list-style-type: none;
             padding-left: 0;
-            margin-top: 2px;
         }
         ul.bullets li {
             position: relative;
-            padding-left: 1rem;
-            margin-bottom: 2px; /* Tighter list items */
-            line-height: 1.4;
+            padding-left: 1.2rem;
+            margin-bottom: 0.25rem;
         }
         ul.bullets li::before {
             content: "•";
@@ -116,128 +110,126 @@
             font-weight: bold;
             position: absolute;
             left: 0;
-            top: 0;
         }
-        
-        /* Compact helpers */
-        .compact-mb { margin-bottom: 0.75rem; }
-        .compact-p { line-height: 1.5; margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
 
     <!-- Print Button (Hidden on Print) -->
-    <div class="no-print fixed top-4 right-4 z-50 flex gap-2">
-        <div class="bg-yellow-100 text-yellow-800 text-xs px-3 py-2 rounded shadow border border-yellow-300">
-            <i class="fas fa-exclamation-circle"></i> 列印時請選擇：<br>邊界 (Margins): <b>無 (None)</b>
-        </div>
-        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg flex items-center gap-2 transition-all h-fit">
-            <i class="fas fa-print"></i> 列印 / PDF
+    <div class="no-print fixed top-4 right-4 z-50">
+        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg flex items-center gap-2 transition-all">
+            <i class="fas fa-print"></i> 列印 / 存成 PDF
         </button>
     </div>
 
     <!-- Resume Page -->
-    <div class="page text-sm">
+    <div class="page text-sm leading-relaxed">
         
         <!-- Header -->
-        <header class="border-b-4 border-blue-600 pb-4 mb-4">
+        <header class="border-b-4 border-blue-600 pb-6 mb-6">
             <div class="flex justify-between items-end">
                 <div>
-                    <h1 class="text-3xl font-bold tracking-wide text-gray-900 mb-0">楊皓霖 <span class="text-xl text-gray-600 font-normal">(Henry Yang)</span></h1>
-                    <p class="text-base text-blue-800 font-medium mt-1">Senior Software Engineer | AI Transformation Lead | Technical Instructor</p>
+                    <h1 class="text-4xl font-bold tracking-wide text-gray-900 mb-1">楊皓霖 <span class="text-2xl text-gray-600 font-normal">(Henry Yang)</span></h1>
+                    <p class="text-lg text-blue-800 font-medium">Senior Software Engineer | AI Transformation Lead | Technical Instructor</p>
                 </div>
-                <div class="text-right text-xs space-y-0.5 text-gray-600">
-                    <p class="flex items-center justify-end gap-2"><i class="fas fa-envelope text-blue-600"></i> yhlhenry@gmail.com</p>
-                    <p class="flex items-center justify-end gap-2"><i class="fas fa-phone text-blue-600"></i> +886-911-943-150</p>
-                    <p class="flex items-center justify-end gap-2"><i class="fab fa-linkedin text-blue-600"></i> LinkedIn Profile</p>
+                <div class="text-right text-sm space-y-1">
+                    <p><i class="fas fa-envelope text-blue-600 w-5"></i> yhlhenry@gmail.com</p>
+                    <p><i class="fas fa-phone text-blue-600 w-5"></i> +886-911-943-150</p>
+                    <p><i class="fab fa-linkedin text-blue-600 w-5"></i> LinkedIn Profile</p>
                 </div>
             </div>
         </header>
 
         <!-- Two Column Layout -->
-        <div class="grid grid-cols-12 gap-5">
+        <div class="grid grid-cols-12 gap-6">
 
             <!-- Left Column (Main Content) -->
             <div class="col-span-12 md:col-span-8">
                 
                 <!-- Profile -->
-                <section class="compact-mb">
+                <section class="mb-6 break-inside-avoid">
                     <h2 class="section-title"><i class="fas fa-user-circle"></i> 個人簡介 (Profile)</h2>
-                    <p class="text-justify text-gray-700 compact-p">
+                    <p class="text-justify text-gray-700">
                         具備 10 年以上經驗的資深軟體工程師與技術講師，現任 Appier AI 轉型計畫負責人。擅長「多層次教學設計」，能針對不同受眾將複雜的 AI 技術拆解為工具應用 (Tools)、技術原理 (Tech) 與思維心態 (Mindset) 三個維度。始終扮演團隊中的「技術傳教士」，從系統開發指導到全公司 AI 賦能，展現將尖端科技轉化為實務生產力的卓越能力。
                     </p>
                 </section>
 
                 <!-- Experience -->
-                <section>
+                <section class="mb-6">
                     <h2 class="section-title"><i class="fas fa-briefcase"></i> 工作經歷 (Professional Experience)</h2>
 
                     <!-- Job 1: Appier -->
-                    <div class="compact-mb">
-                        <div class="job-header mb-0.5">
-                            <h3 class="text-base font-bold text-gray-900">Senior Software Engineer & AI Transformation Lead</h3>
-                            <span class="text-gray-600 font-medium text-xs">Appier | Apr 2022 – Present</span>
+                    <div class="mb-5 break-inside-avoid">
+                        <div class="job-header mb-1">
+                            <h3 class="text-lg font-bold text-gray-900">Senior Software Engineer & AI Transformation Lead</h3>
+                            <span class="text-gray-600 font-medium">Appier | Apr 2022 – Present</span>
                         </div>
-                        <p class="italic text-gray-600 mb-1.5 text-xs">負責核心系統開發，並主導全公司的 AI 賦能計畫，提升組織工作效率。</p>
+                        <p class="italic text-gray-600 mb-2 text-xs">負責 CRM/IT/HR/FIN 系統開發，並主導全公司的 AI 賦能計畫，提升組織工作效率與創新能力。</p>
                         
-                        <div class="pl-2 border-l-2 border-blue-100 ml-0.5">
+                        <div class="pl-2 border-l-2 border-blue-100 ml-1">
                             <div class="mb-2">
-                                <span class="font-bold text-blue-800 block text-xs">🔹 AI 轉型與培訓主導 (AI Transformation)</span>
-                                <ul class="bullets mt-0.5">
-                                    <li><strong>全公司 AI 導入：</strong>擔任負責人，規劃並執行轉型策略，提升整體組織創新能力。</li>
+                                <span class="font-bold text-blue-800 block">🔹 AI 轉型與培訓主導 (AI Transformation & Training Leadership)</span>
+                                <ul class="bullets mt-1">
+                                    <li><strong>全公司 AI 導入策略：</strong>規劃並執行轉型計畫，以工具、技術、心態三個層次進行賦能。</li>
                                     <li>
                                         <strong>建構三層次培訓體系 (Three-Layered Curriculum)：</strong>
-                                        <div class="grid grid-cols-3 gap-2 mt-1 mb-1 bg-gray-50 p-1.5 rounded text-xs border border-gray-100">
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-1 mb-1 bg-gray-50 p-2 rounded text-xs">
                                             <div>
                                                 <span class="font-bold text-blue-600 block">1. 工具 (Tools)</span>
-                                                設計工作坊，運用 AI 解決繁瑣任務，提升生產力。
+                                                設計實戰工作坊，運用 AI 解決繁瑣任務，提升生產力。
                                             </div>
                                             <div>
                                                 <span class="font-bold text-blue-600 block">2. 技術 (Tech)</span>
-                                                解析 LLM 原理與 Prompt 邏輯，強化工程師掌控力。
+                                                深入解析 LLM 原理與 Prompt Engineering，強化工程師掌控力。
                                             </div>
                                             <div>
                                                 <span class="font-bold text-blue-600 block">3. 心態 (Mindset)</span>
-                                                建立「AI 協作思維」，克服恐懼並優化流程。
+                                                引導建立「AI 協作思維」，克服恐懼並主動優化流程。
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             
-                            <div class="mb-1.5">
-                                <span class="font-bold text-gray-800 block text-xs">🔹 技術導師 (Mentorship) & 系統開發</span>
+                            <div class="mb-2">
+                                <span class="font-bold text-gray-800 block">🔹 技術導師與團隊帶領 (Technical Mentorship)</span>
                                 <ul class="bullets">
-                                    <li><strong>資淺工程師導師：</strong>透過 Code Review 與 Pair Programming 傳授架構設計與可維護性思維。</li>
-                                    <li><strong>新人培訓 (Onboarding)：</strong>將龐大系統拆解為模組化單元，加速新人即戰力養成。</li>
-                                    <li><strong>系統開發溝通：</strong>利用清晰架構圖向 PM 與跨部門團隊說明技術限制，確保專案推進。</li>
+                                    <li><strong>資淺工程師導師：</strong>透過 Code Review 與 Pair Programming 傳授架構設計邏輯與可維護性思維。</li>
+                                    <li><strong>新人培訓 (Onboarding)：</strong>將龐大系統架構拆解為模組化學習單元，加速新人即戰力養成。</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-gray-800 block">🔹 系統開發與架構溝通</span>
+                                <ul class="bullets">
+                                    <li>負責核心系統開發，利用清晰架構圖向 PM 與跨部門團隊說明技術限制與解決方案。</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Job 2: Trend Micro -->
-                    <div class="compact-mb">
-                        <div class="job-header mb-0.5">
-                            <h3 class="text-base font-bold text-gray-900">Cloud Platform Tech Lead</h3>
-                            <span class="text-gray-600 font-medium text-xs">Trend Micro | Oct 2016 – Apr 2022</span>
+                    <div class="mb-5 break-inside-avoid">
+                        <div class="job-header mb-1">
+                            <h3 class="text-lg font-bold text-gray-900">Cloud Platform Tech Lead</h3>
+                            <span class="text-gray-600 font-medium">Trend Micro | Oct 2016 – Apr 2022</span>
                         </div>
                         <ul class="bullets">
-                            <li><strong>主動式課程設計 (Python 讀書會)：</strong>發起針對零基礎同事的 Python 課程，將程式邏輯降維解說，成功教會行政人員運用程式解決日常工作。</li>
-                            <li><strong>知識管理系統化：</strong>主導 Knowledge Base 轉型，結構化散落的技術資訊，降低溝通成本。</li>
-                            <li><strong>跨領域溝通：</strong>負責 Salesforce 與 AWS 整合，將 API 邏輯轉化為商業語言，協助決策。</li>
+                            <li><strong>主動式課程設計 (Python 讀書會)：</strong>發起並設計針對零基礎同事的 Python 課程，成功教會行政人員運用程式解決日常工作，推動技術學習文化。</li>
+                            <li><strong>知識管理系統化：</strong>主導 Knowledge Base 轉型，結構化散落的技術資訊，大幅降低團隊溝通成本。</li>
+                            <li><strong>跨領域溝通橋樑：</strong>負責 Salesforce 與 Azure/AWS 整合，將 API 邏輯轉化為商業語言，協助管理層決策。</li>
                         </ul>
                     </div>
 
                     <!-- Job 3: ManpowerGroup -->
-                    <div>
-                        <div class="job-header mb-0.5">
-                            <h3 class="text-base font-bold text-gray-900">Process Development Quality (PDQ) Specialist</h3>
-                            <span class="text-gray-600 font-medium text-xs">ManpowerGroup | Apr 2015 – Sep 2016</span>
+                    <div class="break-inside-avoid">
+                        <div class="job-header mb-1">
+                            <h3 class="text-lg font-bold text-gray-900">Process Development Quality (PDQ) Specialist</h3>
+                            <span class="text-gray-600 font-medium">ManpowerGroup | Apr 2015 – Sep 2016</span>
                         </div>
                         <ul class="bullets">
-                            <li><strong>內部 Excel 講師：</strong>教學重點在於「資料處理邏輯」，協助同仁提升 10% 以上作業效率。</li>
-                            <li><strong>自動化開發：</strong>開發 VBA 工具節省 80% 時間，以此範例教導同事優化工作流程。</li>
+                            <li><strong>內部 Excel 講師：</strong>重點教學「資料處理邏輯」而非死背公式，協助同仁提升 10% 以上作業效率。</li>
+                            <li><strong>自動化開發：</strong>開發 VBA 工具節省 80% 時間，並以此教導同事透過邏輯思考優化流程。</li>
                         </ul>
                     </div>
                 </section>
@@ -247,57 +239,57 @@
             <div class="col-span-12 md:col-span-4">
                 
                 <!-- Core Competencies -->
-                <section class="mb-5 bg-gray-50 p-3 rounded-lg border border-gray-200">
-                    <h2 class="section-title text-base border-blue-400 mb-2"><i class="fas fa-star"></i> 核心教學優勢</h2>
-                    <div class="space-y-3">
+                <section class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200 break-inside-avoid">
+                    <h2 class="section-title text-base border-blue-400"><i class="fas fa-star"></i> 核心教學優勢</h2>
+                    <div class="space-y-4">
                         <div>
                             <h4 class="font-bold text-gray-900 text-sm">全方位課程設計</h4>
-                            <p class="text-xs text-gray-500 mb-0.5">Holistic Curriculum Design</p>
-                            <p class="text-xs leading-relaxed">設計「工具-技術-心態」三位一體課程，引導 Why 與 What-if 的深層思考。</p>
+                            <p class="text-xs text-gray-600 mt-1">Holistic Curriculum Design</p>
+                            <p class="text-xs mt-1">設計「工具-技術-心態」三位一體課程，引導 Why 與 What-if 的深層思考。</p>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 text-sm">技術邏輯轉譯</h4>
-                            <p class="text-xs text-gray-500 mb-0.5">Tech-to-Business Translation</p>
-                            <p class="text-xs leading-relaxed">將抽象演算法轉化為白話文與商業價值，協助非技術人員跨越認知門檻。</p>
+                            <p class="text-xs text-gray-600 mt-1">Tech-to-Business Translation</p>
+                            <p class="text-xs mt-1">將抽象演算法轉化為白話文與商業價值，協助非技術人員跨越門檻。</p>
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-900 text-sm">思維賦能</h4>
-                            <p class="text-xs text-gray-500 mb-0.5">Mindset Enablement</p>
-                            <p class="text-xs leading-relaxed">強調「底層邏輯」與「解決問題思維」，建立自動化與 AI 協作習慣。</p>
+                            <p class="text-xs text-gray-600 mt-1">Mindset Enablement</p>
+                            <p class="text-xs mt-1">強調「底層邏輯」與「解決問題思維」，建立自動化與 AI 協作習慣。</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Project / Teaching -->
-                <section class="mb-5">
+                <section class="mb-6 break-inside-avoid">
                     <h2 class="section-title text-base border-blue-400"><i class="fas fa-chalkboard-teacher"></i> 教學與顧問專案</h2>
                     
                     <div class="mb-3">
-                        <div class="font-bold text-gray-900 text-sm">Excel/VBA 顧問與講師</div>
-                        <div class="text-xs text-blue-600 font-medium mb-1">Excel Myself (自營品牌)</div>
-                        <ul class="bullets text-xs space-y-1.5">
+                        <div class="font-bold text-gray-900">Excel/VBA 顧問與講師</div>
+                        <div class="text-xs text-blue-600 font-medium mb-1">Excel Myself (自營品牌) | 2015 – Present</div>
+                        <ul class="bullets text-xs space-y-2">
                             <li>
                                 <strong>客製化課程開發：</strong><br>
                                 針對財務、人資等非技術學員，運用生活化比喻解釋迴圈、變數等抽象概念。
                             </li>
                             <li>
                                 <strong>診斷式教學：</strong><br>
-                                「痛點診斷 ➝ 觀念釐清 ➝ 實作演練」，協助超過 60 位學員解決真實難題。
+                                「痛點診斷 ➝ 觀念釐清 ➝ 實作演練」，協助超過 60 位學員解決真實工作難題。
                             </li>
                         </ul>
                     </div>
                 </section>
 
-                <!-- Skills Tags -->
-                <section>
+                <!-- Skills Tags (Optional Visual) -->
+                <section class="break-inside-avoid">
                     <h2 class="section-title text-base border-blue-400"><i class="fas fa-tools"></i> 技術關鍵字</h2>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-semibold">AI Transformation</span>
-                        <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-semibold">LLM & Prompt Eng.</span>
-                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">Python</span>
-                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">Sys Design</span>
-                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">Mentoring</span>
-                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">VBA/Excel</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">AI Transformation</span>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">LLM & Prompt Eng.</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Python</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">System Architecture</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Mentoring</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">VBA/Excel</span>
                     </div>
                 </section>
 
@@ -305,8 +297,8 @@
         </div>
         
         <!-- Footer for Print -->
-        <div class="mt-6 pt-2 border-t border-gray-300 text-center text-[10px] text-gray-400 hidden print:block">
-            &copy; 2024 Henry Yang - Professional Resume
+        <div class="mt-8 pt-4 border-t border-gray-300 text-center text-xs text-gray-500 hidden print:block">
+            &copy; Henry Yang - Professional Resume
         </div>
 
     </div>
