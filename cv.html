@@ -10,8 +10,10 @@
     <style>
         body {
             font-family: 'Noto Sans TC', 'Roboto', sans-serif;
-            background-color: #f3f4f6; /* Gray-100 */
+            background-color: #525659; /* Darker background for viewing contrast */
             color: #374151; /* Gray-700 */
+            margin: 0;
+            padding: 0;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -22,35 +24,53 @@
             min-height: 297mm;
             margin: 20px auto;
             background: white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            padding: 12mm 15mm;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            padding: 12mm 15mm; /* Maintain consistent padding */
             position: relative;
             box-sizing: border-box;
+            overflow: hidden; /* Prevent spillover */
         }
 
-        /* Print Specifics */
+        /* Print Specifics - CRITICAL FIXES */
         @media print {
+            @page {
+                size: A4;
+                margin: 0; /* Reset browser default margins to 0 */
+            }
+            
             body {
-                background: none;
+                background: white;
                 margin: 0;
             }
+
             .page {
-                width: 100%;
                 margin: 0;
+                width: 210mm; /* Force A4 width */
+                min-height: 297mm; /* Force A4 height */
                 box-shadow: none;
-                padding: 0; /* Let print margins handle it or keep minimal padding */
-                min-height: auto;
+                /* Crucial: Keep the padding in print mode so content doesn't touch edges */
+                padding: 12mm 15mm !important; 
+                page-break-after: always;
             }
+
             .no-print {
                 display: none !important;
             }
+            
             /* Ensure page breaks don't cut inside elements */
             .break-inside-avoid {
                 page-break-inside: avoid;
             }
+
             a {
                 text-decoration: none;
                 color: #1f2937;
+            }
+            
+            /* Force background graphics */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
 
